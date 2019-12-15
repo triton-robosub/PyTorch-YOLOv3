@@ -5,8 +5,10 @@ build
 *.egg-info
 dist
 output
-data/coco
+data/
+logs/
 backup
-weights/*.weights
+weights/
 __pycache__
 checkpoints
+.vscode
