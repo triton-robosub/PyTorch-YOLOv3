@@ -1,4 +1,4 @@
 classes=2
-train=data/custom/train.txt
-valid=data/custom/valid.txt
-names=data/custom/classes.names
+train=data/gate/train.txt
+valid=data/gate/valid.txt
+names=data/gate/classes.names
