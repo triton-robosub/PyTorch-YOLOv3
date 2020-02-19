@@ -10,10 +10,13 @@ python3 -W ignore train.py --model_def config/yolov3-gate.cfg --data_config conf
 
 ## Detecting
 ```
-python3 detect.py --image_folder /home/noah/robosub/data/gate/new_gate/images --model_def config/yolov3-gate.cfg --class_path data/gate/classes.names --checkpoint_model /home/noah/robosub/models/yolov3/gate20/yolov3_ckpt_19.pth
+python3 detect.py --image_folder /home/noah/robosub/data/gate/new_gate/images --model_def config/yolov3-gate.cfg --class_path data/gate/classes.names --checkpoint_model /home/noah/robosub/models/yolov3/gate20/yolov3_ckpt_19.pth --batch_size 4
 ```
 
 ## Testing
 ```
 python3 test.py --batch_size 4 --model_def config/yolov3-gate.cfg --data_config config/new_gate.data --weights_path /home/noah/robosub/models/yolov3/gate20/yolov3_ckpt_19.pth --class_path data/gate/classes.names 
 ```
+
+## Live
+python3 live.py --img_path data/gate/images/177.jpg --checkpoint_model /home/noah/robosub/models/yolov3/gate20/yolov3_ckpt_19.pth
