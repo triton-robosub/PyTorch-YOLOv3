@@ -103,3 +103,4 @@ if __name__ == "__main__":
     plt.gca().xaxis.set_major_locator(NullLocator())
     plt.gca().yaxis.set_major_locator(NullLocator())
     plt.show()
+    
