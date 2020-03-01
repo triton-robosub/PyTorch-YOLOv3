@@ -46,7 +46,7 @@ def evaluate(model, path, iou_thres, conf_thres, nms_thres, img_size, batch_size
         with torch.no_grad():
             outputs = model(imgs)
             outputs = non_max_suppression(outputs, conf_thres=conf_thres, nms_thres=nms_thres)
-
+            
         sample_metrics += get_batch_statistics(outputs, targets, iou_threshold=iou_thres)
 
     # Concatenate sample statistics
@@ -103,3 +103,6 @@ if __name__ == "__main__":
         print(f"+ Class '{c}' ({class_names[c]}) - AP: {AP[i]}")
 
     print(f"mAP: {AP.mean()}")
+
+    with open('benchmark_map.txt','w') as f:
+        f.write(str(AP.mean()))
