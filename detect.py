@@ -96,7 +96,6 @@ if __name__ == "__main__":
     for img_i, (path, detections) in enumerate(zip(imgs, img_detections)):
 
         print("(%d) Image: '%s'" % (img_i, path))
-
         # Create plot
         img = np.array(Image.open(path))
         plt.figure()

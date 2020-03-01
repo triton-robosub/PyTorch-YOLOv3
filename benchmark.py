@@ -55,7 +55,7 @@ for num_imgs in range(START_IMGS, MAX_IMGS, STEP_SIZE):
         subprocess.run(['python3', 'test.py', '--batch_size', '4', '--model_def', 'config/yolov3-gate.cfg', '--data_config', 
         'config/new_gate.data', '--weights_path', weights_path, '--class_path', 'data/gate/classes.names'])
 
-        with open('benchmark_map.txt','r') as f:
+        with open('benchmark_map.txt','r+') as f:
             mAP = f.read()
         metrics.append(mAP)
 
