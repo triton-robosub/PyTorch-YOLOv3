@@ -1,0 +1,3 @@
+close_checkpoints/ : 0.00929046388116001
+medium_checkpoints/ : 0.06851373605153618
+checkpoints/ : 0.034526802693904846
