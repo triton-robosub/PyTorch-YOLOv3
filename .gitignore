@@ -11,4 +11,6 @@ backup
 weights/
 __pycache__
 checkpoints
+close_checkpoints
+medium_checkpoints
 .vscode
