@@ -13,7 +13,7 @@ os.mkdir('checkpoints/')
 # Path to .txt files for close category
 CLOSE_IMG_DIR = 'data/gate/label_categories/close/'
 # Number of epochs to train model on close images
-CLOSE_EPOCHS = 2
+CLOSE_EPOCHS = 1
 
 # get list of all img numbers in close category and shuffle
 close_imgs = [img.split('.')[0] for img in os.listdir(CLOSE_IMG_DIR)]
@@ -35,6 +35,8 @@ subprocess.run(['python3','-W','ignore','train.py','--model_def','config/yolov3-
 '--data_config','config/gate.data','--epochs', f'{CLOSE_EPOCHS}','--batch_size','4'])
 
 
+# move checkpoints for close data to own directory
+shutil.move('checkpoints/', 'close_checkpoints/')
 
 
 ########## Use current model state to train on medium imgs ###########
@@ -42,7 +44,7 @@ subprocess.run(['python3','-W','ignore','train.py','--model_def','config/yolov3-
 # Path to .txt files for medium category
 MEDIUM_IMG_DIR = 'data/gate/label_categories/medium/'
 # Number of epochs to train model on medium images
-MEDIUM_EPOCHS = 2
+MEDIUM_EPOCHS = 1
 
 # get list of all img numbers in medium category and shuffle
 medium_imgs = [img.split('.')[0] for img in os.listdir(MEDIUM_IMG_DIR)]
@@ -61,11 +63,10 @@ with open('data/gate/valid.txt','w') as f:
 
 #train model
 subprocess.run(['python3','-W','ignore','train.py','--model_def','config/yolov3-gate.cfg',
-'--data_config','config/gate.data','--epochs', f'{MEDIUM_EPOCHS}','--batch_size','4', '--pretrained_weights', f'yolov3_ckpt_{CLOSE_EPOCHS-1}'])
+'--data_config','config/gate.data','--epochs', f'{MEDIUM_EPOCHS}','--batch_size','4', '--pretrained_weights', f'close_checkpoints/yolov3_ckpt_{CLOSE_EPOCHS-1}.pth'])
 
-
-
-
+# move checkpoints for medium data to own directory
+shutil.move('checkpoints/', 'medium_checkpoints/')
 
 # ########## Use current model state to train on far imgs ###########
 
@@ -91,7 +92,7 @@ subprocess.run(['python3','-W','ignore','train.py','--model_def','config/yolov3-
 
 # #train model
 # subprocess.run(['python3','-W','ignore','train.py','--model_def','config/yolov3-gate.cfg',
-# '--data_config','config/gate.data','--epochs', f'{FAR_EPOCHS}','--batch_size','4', '--pretrained_weights', f'yolov3_ckpt_{MEDIUM_EPOCHS-1}'])
+# '--data_config','config/gate.data','--epochs', f'{FAR_EPOCHS}','--batch_size','4', '--pretrained_weights', f'medium_checkpoints/yolov3_ckpt_{MEDIUM_EPOCHS-1}.pth'])
 
 
 
