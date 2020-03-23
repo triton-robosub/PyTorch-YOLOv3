@@ -48,18 +48,12 @@ FAR_EPOCHS = int(input("Far epochs: "))
 # delete contents of all checkpoint directories before training
 if os.path.isdir(CHKPT_DIRS[0]):
     shutil.rmtree(CHKPT_DIRS[0])
-else:
-    os.mkdir(CHKPT_DIRS[0])
 
 if os.path.isdir(CHKPT_DIRS[1]):
     shutil.rmtree(CHKPT_DIRS[1])
-else:
-    os.mkdir(CHKPT_DIRS[1])
 
 if os.path.isdir(CHKPT_DIRS[2]):
     shutil.rmtree(CHKPT_DIRS[2])
-else:
-    os.mkdir(CHKPT_DIRS[2])
 
 
 
@@ -75,7 +69,7 @@ with open(os.path.join(DATA_DIR, "train.txt"),'w') as f:
     for img in close_imgs:
         f.write(os.path.join(DATA_DIR, "images/close", "") + img + ".jpg\n")
 
-with open('data/gate/valid.txt','w') as f:
+with open(os.path.join(DATA_DIR, "valid.txt"),'w') as f:
     for img in close_imgs:
         f.write(os.path.join(DATA_DIR, "images/close", "") + img + ".jpg\n")
 
@@ -100,7 +94,7 @@ with open(os.path.join(DATA_DIR, "train.txt"),'w') as f:
     for img in medium_imgs:
         f.write(os.path.join(DATA_DIR, "images/medium", "") + img + ".jpg\n")
 
-with open('data/gate/valid.txt','w') as f:
+with open(os.path.join(DATA_DIR, "valid.txt"),'w') as f:
     for img in medium_imgs:
         f.write(os.path.join(DATA_DIR, "images/medium", "") + img + ".jpg\n")
 
@@ -125,7 +119,7 @@ with open(os.path.join(DATA_DIR, "train.txt"),'w') as f:
     for img in far_imgs:
         f.write(os.path.join(DATA_DIR, "images/far", "") + img + ".jpg\n")
 
-with open('data/gate/valid.txt','w') as f:
+with open(os.path.join(DATA_DIR, "valid.txt"),'w') as f:
     for img in far_imgs:
         f.write(os.path.join(DATA_DIR, "images/far", "") + img + ".jpg\n")
 

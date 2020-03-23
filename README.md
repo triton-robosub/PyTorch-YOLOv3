@@ -4,15 +4,13 @@ A minimal PyTorch implementation of YOLOv3, with support for training, inference
 
 
 ## New files added after original repository fork
-- iter_train_benchmark.py
-- category_benchmark.py
-- install_anaconda.sh
-- live.py
-- original-README.md
-- robosub_conda_env.txt
-- to_cpu.py
-- data/gate/
-- data/gate_categorized/
+- original-README.md: Original YOLOv3 repository README.
+- robosub_conda_env.txt: File containing all requirements for `robosub` conda environment.
+- install_anaconda.sh: For installing Anaconda.
+- iter_train_benchmark.py: Benchmark to test if number of increased number of training images improves accuracy.
+- category_benchmark.py: Benchmark to test if training on different categories of images improves accuracy.
+- live.py: Detect on single input image using trained model.
+- to_cpu.py: Convert CUDA model and weights to CPU model and weights.
 
 
 
@@ -113,6 +111,54 @@ bash download_weights.sh
 
 
 
+## Necessary Files
+1. config/yolov3-[NEW_NAME].cfg
+    - Model definition for `<NUM_CLASSES>` made from create custom model script. Contains model architecture (YOLO, ReLU, convolutional, etc. layers)
+2. config/[NEW_NAME].data
+    - Number of classes and paths to train.txt, valid.txt, and classes.names
+3. data/[NEW_NAME]/train.txt
+    - Paths to each image for training. 
+4. data/[NEW_NAME]/valid.txt
+    - Paths to each image for validation.
+5. data/[NEW_NAME]/classes.names
+    - Names of classes to identify
+6. data/[NEW_NAME]/images
+    - Directory to store .jpg files for images
+7. data/[NEW_NAME]/labels
+    - Directory to store .txt files for images
+
+
+
+## Training Parameters
+1. [--epochs EPOCHS]
+    - Number of epochs to train on. An epoch is one complete presentation of the data set to be learned. Training and validation loss will decrease over time. Early stopping can be applied. After each epoch of training, the model weights are saved in `checkpoints/`
+2. [--batch_size BATCH_SIZE]
+    -  The number of images processed by GPU in a batch. Anything higher than this will result in a CUDA memory error for this GPU. The batch size is too large when a CUDA memory error is thrown, just keep reducing the batch size.
+3. [--gradient_accumulations GRADIENT_ACCUMULATIONS]
+    - Number of gradient accumulations before step.
+4. [--model_def MODEL_DEF]
+    - Path to model definition file. Provides the framework (size of convolution layers, etc) of the YOLOv3 network, and was generated with the bash command to create a custom model. 
+5. [--data_config DATA_CONFIG]
+    - Path to data config file. Provides paths to classes.names, train.txt, and valid.txt as well as the number of classes.
+6. [--pretrained_weights PRETRAINED_WEIGHTS]
+    - Starts from checkpoint model that has partially trained weights.
+7. [--n_cpu N_CPU]
+    - Number of cpu threads to use during batch generation.
+8. [--img_size IMG_SIZE]
+    - Size of each image dimension.
+9. [--checkpoint_interval CHECKPOINT_INTERVAL]
+    - Interval between saving model weights.
+10. [--evaluation_interval EVALUATION_INTERVAL]
+    - Interval evaluations on validation set.
+11. [--compute_map COMPUTE_MAP]
+    - If True computes mAP every tenth batch.
+12. [--multiscale_training MULTISCALE_TRAINING]
+    - To ease the inconsistency between the sizes of objects and receptive
+fields, object detection is performed with multiple output layers,
+each focusing on objects within certain scale ranges.
+
+
+
 ## YOLOV3 Training
 ### Training parameters
 ```
@@ -151,4 +197,3 @@ python test.py --model_def config/yolov3-[NEW_NAME].cfg --data_config config/[NE
 ```
 python live.py --img_path PATH_TO_IMG/[IMG] --checkpoint_model PATH_TO_PTH/[FILENAME].pth
 ```
-
