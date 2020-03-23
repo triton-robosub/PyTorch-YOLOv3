@@ -1,4 +1,0 @@
-classes=2
-train=/home/noah/robosub/data/gate/new_gate/train.txt
-valid=/home/noah/robosub/data/gate/new_gate/valid.txt
-names=data/gate/classes.names
