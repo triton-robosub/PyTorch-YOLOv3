@@ -1,4 +1,5 @@
-classes=2
+classes= 2
 train=data/gate/train.txt
 valid=data/gate/valid.txt
 names=data/gate/classes.names
+

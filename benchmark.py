@@ -3,13 +3,21 @@ import random
 import subprocess 
 import shutil 
 
-MAX_IMGS = 1900 #upperbound for number of total training labels, currently 1812
-START_IMGS = 700 #anything less will result in errors during validation stage.
+# upperbound for number of total training labels, currently 1812
+MAX_IMGS = 1900 
+# anything less will result in errors during validation stage.
+START_IMGS = 700 
+# TODO
 STEP_SIZE = 100
-IMG_DIR = 'data/gate/labels/'
-EPOCHS = 50
 
-all_imgs = os.listdir(IMG_DIR)
+# Read in path to data files
+print("What is the path to the data folder that contains the images, labels, etc.? For example data/custom.")
+DATA_DIR = input("Path: ") 
+
+print("What is the number of epochs for this benchmark?")
+EPOCHS = int(input("Epochs: "))
+
+all_imgs = os.listdir(os.path.join(DATA_DIR, "labels"))
 all_imgs = [img.split('.')[0] for img in all_imgs]
 random.shuffle(all_imgs)
 
@@ -47,13 +55,12 @@ for num_imgs in range(START_IMGS, MAX_IMGS, STEP_SIZE):
     #test model for each epoch, record highest mAP and write to file. 
     metrics = []
 
-    for i in range(0, EPOCHS + 1, 5):
+    for i in range(0, EPOCHS + 1, 1):
         if i == EPOCHS:
             i = EPOCHS - 1
         weights_path = f'checkpoints/yolov3_ckpt_{i}.pth'
 
-        subprocess.run(['python3', 'test.py', '--batch_size', '4', '--model_def', 'config/yolov3-gate.cfg', '--data_config', 
-        'config/new_gate.data', '--weights_path', weights_path, '--class_path', 'data/gate/classes.names'])
+        subprocess.run(['python3', 'test.py', '--batch_size', '4', '--model_def', 'config/yolov3-gate.cfg', '--data_config', 'config/gate.data', '--weights_path', weights_path, '--class_path', 'data/gate/classes.names'])
 
         with open('benchmark_map.txt','r+') as f:
             mAP = f.read()
