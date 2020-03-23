@@ -33,7 +33,7 @@ conda activate robosub
 ```
 5. Clone this repository.
 ```
-git clone https://github.com/imranmatin23/PyTorch-YOLOv3.git
+git clone https://github.com/triton-robosub/PyTorch-YOLOv3.git
 ```
 6. Confirm that nobody else is using the GPU. Under "Volatile GPU-Util" the pecentage should be 0% if it is not being used. If it is being used, it will be approximately 80% or above.
 ```
@@ -42,6 +42,19 @@ watch nvidia-smi
 <p align="center"><img src="assets/GPU-output.png" width="480"\></p>
 
 ## YOLOV3 Training
+### Training parameters
+```
+$ train.py [-h] [--epochs EPOCHS] [--batch_size BATCH_SIZE]
+                [--gradient_accumulations GRADIENT_ACCUMULATIONS]
+                [--model_def MODEL_DEF] [--data_config DATA_CONFIG]
+                [--pretrained_weights PRETRAINED_WEIGHTS] [--n_cpu N_CPU]
+                [--img_size IMG_SIZE]
+                [--checkpoint_interval CHECKPOINT_INTERVAL]
+                [--evaluation_interval EVALUATION_INTERVAL]
+                [--compute_map COMPUTE_MAP]
+                [--multiscale_training MULTISCALE_TRAINING]
+```
+
 ### Training with pretrained weights
 ```
 python3 -W ignore train.py --model_def config/yolov3-gate.cfg --data_config config/gate.data --epochs 100 --batch_size 4 --pretrained_weights weights/yolov3.weights
