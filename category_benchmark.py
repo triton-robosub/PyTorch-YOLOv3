@@ -73,11 +73,11 @@ print(f'number of close training images: {len(close_imgs)}, number of close vali
 print('Writing train.txt and valid.txt')
 with open(os.path.join(DATA_DIR, "train.txt"),'w') as f:
     for img in close_imgs:
-        f.write(os.path.join(DATA_DIR, "images", "") + img + ".jpg\n")
+        f.write(os.path.join(DATA_DIR, "images/close", "") + img + ".jpg\n")
 
 with open('data/gate/valid.txt','w') as f:
     for img in close_imgs:
-        f.write(os.path.join(DATA_DIR, "images", "") + img + ".jpg\n")
+        f.write(os.path.join(DATA_DIR, "images/close", "") + img + ".jpg\n")
 
 # train model
 subprocess.run(['python3','-W','ignore','train.py','--model_def', MODEL_DEF,
@@ -98,11 +98,11 @@ print(f'number of medium training images: {len(medium_imgs)}, number of medium v
 print('Writing train.txt and valid.txt')
 with open(os.path.join(DATA_DIR, "train.txt"),'w') as f:
     for img in medium_imgs:
-        f.write(os.path.join(DATA_DIR, "images", "") + img + ".jpg\n")
+        f.write(os.path.join(DATA_DIR, "images/medium", "") + img + ".jpg\n")
 
 with open('data/gate/valid.txt','w') as f:
     for img in medium_imgs:
-        f.write(os.path.join(DATA_DIR, "images", "") + img + ".jpg\n")
+        f.write(os.path.join(DATA_DIR, "images/medium", "") + img + ".jpg\n")
 
 # train model
 subprocess.run(['python3','-W','ignore','train.py','--model_def', MODEL_DEF,
@@ -123,11 +123,11 @@ print(f'number of far training images: {len(far_imgs)}, number of far valid imag
 print('Writing train.txt and valid.txt')
 with open(os.path.join(DATA_DIR, "train.txt"),'w') as f:
     for img in far_imgs:
-        f.write(os.path.join(DATA_DIR, "images", "") + img + ".jpg\n")
+        f.write(os.path.join(DATA_DIR, "images/far", "") + img + ".jpg\n")
 
 with open('data/gate/valid.txt','w') as f:
     for img in far_imgs:
-        f.write(os.path.join(DATA_DIR, "images", "") + img + ".jpg\n")
+        f.write(os.path.join(DATA_DIR, "images/far", "") + img + ".jpg\n")
 
 # train model
 subprocess.run(['python3','-W','ignore','train.py','--model_def', MODEL_DEF,

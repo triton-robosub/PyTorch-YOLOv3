@@ -1,0 +1,4 @@
+classes=2
+train=data/gate_categorized/train.txt
+valid=data/gate_categorized/valid.txt
+names=data/gate_categorized/classes.names

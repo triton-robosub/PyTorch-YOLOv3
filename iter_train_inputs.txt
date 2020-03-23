@@ -1,5 +1,5 @@
 data/gate
 config/gate.data
-config/gate.cfg
+config/yolov3-gate.cfg
 1
 4
