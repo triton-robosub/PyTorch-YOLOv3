@@ -32,7 +32,7 @@ MODEL_DEF = input("Config file: ")
 
 # Read in the number of epochs for this benchmark
 print("What is the number of epochs for this benchmark? An example entry is 50.")
-EPOCHS = input("Epochs: ")
+EPOCHS = int(input("Epochs: "))
 
 # Read in the batch suze for this benchmark
 print("What is the number of epochs for this benchmark? An example entry is 4.")
@@ -64,11 +64,11 @@ for num_imgs in range(START_IMGS, MAX_IMGS, STEP_SIZE):
     print('Writing train.txt and valid.txt')
     with open(os.path.join(DATA_DIR, "train.txt"),'w') as f:
         for img in train_img:
-            f.write(os.path.join(DATA_DIR, "images") + img + ".jpg\n")
+            f.write(os.path.join(DATA_DIR, "images", "") + img + ".jpg\n")
 
     with open(os.path.join(DATA_DIR, "valid.txt"),'w') as f:
         for img in valid_img:
-            f.write(os.path.join(DATA_DIR, "images") + img + ".jpg\n")
+            f.write(os.path.join(DATA_DIR, "images", "") + img + ".jpg\n")
     
     # delete contents of checkpoints before training
     shutil.rmtree('checkpoints/')
@@ -76,7 +76,7 @@ for num_imgs in range(START_IMGS, MAX_IMGS, STEP_SIZE):
 
     # train model
     subprocess.run(['python3','-W','ignore','train.py','--model_def', MODEL_DEF,
-    '--data_config', DATA_CONFIG,'--epochs', EPOCHS,'--batch_size', BATCH_SIZE])
+    '--data_config', DATA_CONFIG,'--epochs', str(EPOCHS),'--batch_size', BATCH_SIZE])
 
     #test model for each epoch, record highest mAP and write to file. 
     metrics = []
