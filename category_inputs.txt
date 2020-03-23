@@ -2,6 +2,6 @@ data/gate_categorized
 config/gate_categorized.data
 config/yolov3-gate_categorized.cfg
 4
-1
-1
-1
+2
+2
+2

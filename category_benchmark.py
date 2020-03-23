@@ -130,6 +130,10 @@ subprocess.run(['python3','-W','ignore','train.py','--model_def', MODEL_DEF,
 
 
 ################ TEST THE MODEL #####################
+
+# remove final results file to have fresh results fike
+os.remove(EVAL_RESULTS_FILE)
+
 # Evaluate the model based on each category and its checkpoints
 for category in CHKPT_DIRS:
     # test model for each epoch, record highest mAP and write to file. 
