@@ -3,6 +3,19 @@ A minimal PyTorch implementation of YOLOv3, with support for training, inference
 
 
 
+## New files added after original repository fork
+- benchmark.py
+- imran_benchmark.py
+- install_anaconda.sh
+- live.py
+- original-README.md
+- robosub_conda_env.txt
+- to_cpu.py
+- data/gate/
+- data/gate_categorized/
+
+
+
 ## Pre-Installation for Root User
 1. Create user and give sudo permissions.
 ```
@@ -96,6 +109,8 @@ cd weights/
 bash download_weights.sh
 ```
 
+
+
 ## YOLOV3 Training
 ### Training parameters
 ```
@@ -120,16 +135,19 @@ python -W ignore train.py --model_def config/yolov3-[NEW_NAME].cfg --data_config
 python -W ignore train.py --model_def config/yolov3-[NEW_NAME].cfg --data_config config/[NEW_NAME].data --epochs [NUM_EPOCHS] --batch_size [NUM_BATCHES]
 ```
 
+TODO
 ### Detecting
 ```
-python detect.py --image_folder /home/noah/robosub/data/gate/new_gate/images --model_def config/yolov3-gate.cfg --class_path data/gate/classes.names --checkpoint_model /home/noah/robosub/models/yolov3/gate20/yolov3_ckpt_19.pth --batch_size 4
+python detect.py --image_folder /home/noah/robosub/data/gate/new_gate/images --model_def config/yolov3-[NEW_NAME].cfg --class_path data/[NEW_NAME]/classes.names --checkpoint_model /home/noah/robosub/models/yolov3/gate20/yolov3_ckpt_19.pth --batch_size [NUM_BATCHES]
 ```
 
+TODO
 ### Testing
 ```
-python test.py --batch_size 4 --model_def config/yolov3-gate.cfg --data_config config/new_gate.data --weights_path /home/noah/robosub/models/yolov3/gate20/yolov3_ckpt_19.pth --class_path data/gate/classes.names 
+python test.py --model_def config/yolov3-[NEW_NAME].cfg --data_config config/[NEW_NAME].data --weights_path /home/noah/robosub/models/yolov3/gate20/yolov3_ckpt_19.pth --class_path data/[NEW_NAME]/classes.names --batch_size [NUM_BATCHES]
 ```
 
+TODO
 ### Live
 ```
 python live.py --img_path data/gate/images/177.jpg --checkpoint_model /home/noah/robosub/models/yolov3/gate20/yolov3_ckpt_19.pth
