@@ -4,8 +4,8 @@ A minimal PyTorch implementation of YOLOv3, with support for training, inference
 
 
 ## New files added after original repository fork
-- benchmark.py
-- imran_benchmark.py
+- iter_train_benchmark.py
+- category_benchmark.py
 - install_anaconda.sh
 - live.py
 - original-README.md
@@ -137,21 +137,18 @@ python -W ignore train.py --model_def config/yolov3-[NEW_NAME].cfg --data_config
 python -W ignore train.py --model_def config/yolov3-[NEW_NAME].cfg --data_config config/[NEW_NAME].data --epochs [NUM_EPOCHS] --batch_size [NUM_BATCHES]
 ```
 
-TODO
 ### Detecting
 ```
-python detect.py --image_folder /home/noah/robosub/data/gate/new_gate/images --model_def config/yolov3-[NEW_NAME].cfg --class_path data/[NEW_NAME]/classes.names --checkpoint_model /home/noah/robosub/models/yolov3/gate20/yolov3_ckpt_19.pth --batch_size [NUM_BATCHES]
+python detect.py --image_folder /data/[NEW_NAME]/images --model_def config/yolov3-[NEW_NAME].cfg --class_path data/[NEW_NAME]/classes.names --checkpoint_model PATH_TO_PTH/[FILENAME].pth --batch_size [NUM_BATCHES]
 ```
 
-TODO
 ### Testing
 ```
-python test.py --model_def config/yolov3-[NEW_NAME].cfg --data_config config/[NEW_NAME].data --weights_path /home/noah/robosub/models/yolov3/gate20/yolov3_ckpt_19.pth --class_path data/[NEW_NAME]/classes.names --batch_size [NUM_BATCHES]
+python test.py --model_def config/yolov3-[NEW_NAME].cfg --data_config config/[NEW_NAME].data --weights_path PATH_TO_PTH/[FILENAME].pth --class_path data/[NEW_NAME]/classes.names --batch_size [NUM_BATCHES]
 ```
 
-TODO
 ### Live
 ```
-python live.py --img_path data/gate/images/177.jpg --checkpoint_model /home/noah/robosub/models/yolov3/gate20/yolov3_ckpt_19.pth
+python live.py --img_path PATH_TO_IMG/[IMG] --checkpoint_model PATH_TO_PTH/[FILENAME].pth
 ```
 

@@ -34,7 +34,7 @@ MODEL_DEF = input("Config file: ")
 print("What is the number of epochs for this benchmark? An example entry is 50.")
 EPOCHS = int(input("Epochs: "))
 
-# Read in the batch suze for this benchmark
+# Read in the batch size for this benchmark
 print("What is the number of epochs for this benchmark? An example entry is 4.")
 BATCH_SIZE = input("Batch size: ")
 
