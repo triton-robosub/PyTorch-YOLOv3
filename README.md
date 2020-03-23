@@ -4,13 +4,13 @@ A minimal PyTorch implementation of YOLOv3, with support for training, inference
 
 
 ## New files added after original repository fork
-- original-README.md: Original YOLOv3 repository README.
-- robosub_conda_env.txt: File containing all requirements for `robosub` conda environment.
-- install_anaconda.sh: For installing Anaconda.
-- iter_train_benchmark.py: Benchmark to test if number of increased number of training images improves accuracy.
-- category_benchmark.py: Benchmark to test if training on different categories of images improves accuracy.
-- live.py: Detect on single input image using trained model.
-- to_cpu.py: Convert CUDA model and weights to CPU model and weights.
+- `original-README.md`: Original YOLOv3 repository README.
+- `robosub_conda_env.txt`: File containing all requirements for `robosub` conda environment.
+- `install_anaconda.sh`: For installing Anaconda.
+- `iter_train_benchmark.py`: Benchmark to test if number of increased number of training images improves accuracy.
+- `category_benchmark.py`: Benchmark to test if training on different categories of images improves accuracy.
+- `live.py`: Detect on single input image using trained model.
+- `to_cpu.py`: Convert CUDA model and weights to CPU model and weights.
 
 
 
