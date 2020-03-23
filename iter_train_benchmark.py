@@ -23,7 +23,7 @@ print("What is the path to the data folder that contains the images, labels, etc
 DATA_DIR = input("Path: ") 
 
 # Read in path to .data file
-print("What is the path to the config file for this model? For example config/custom.data.")
+print("What is the path to the data file for this model? For example config/custom.data.")
 DATA_CONFIG = input("Data file: ") 
 
 # Read in path to .cfg file
