@@ -34,7 +34,8 @@ sudo cp -r ~/robosub/yolov3/robosub_conda_env.txt /home/[username]
 - Link to [Triton Robosub repository](https://github.com/triton-robosub/PyTorch-YOLOv3).
 1. Use TMUX always. Refer to this [repo](https://gist.github.com/MohamedAlaa/2961058) for TMUX cheatsheet.
 ```
-tmux a
+tmux new -s myname
+tmux a -t myname
 ```
 2. Install Anaconda on Ubuntu 18.04.
 ```
@@ -71,6 +72,7 @@ mv yolov3-custom.cfg yolov3-[NEW_NAME].cfg
 ```
 cd data/
 mkdir [NEW_NAME]
+cd [NEW_NAME]
 touch classes.names  # file to edit
 ```
 3. Image Folder: Move the images of your dataset to `data/[NEW_NAME]/images/`.
@@ -99,7 +101,7 @@ touch [NEW_NAME].data
 
 #### Add these lines into the file created above ####
 classes=[NUM_CLASSES]
-train=data/[NEW_NAME/train.txt
+train=data/[NEW_NAME]/train.txt
 valid=data/[NEW_NAME]/valid.txt
 names=data/[NEW_NAME]/classes.names
 ```
