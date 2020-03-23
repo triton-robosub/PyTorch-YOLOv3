@@ -11,9 +11,9 @@ START_IMGS = 700
 # Number of images to increase curren number of images used for training and validation split
 STEP_SIZE = 100
 # File to store the evauluation of each epoch for certain training/validation size set
-EVAL_RESULTS = 'benchmark_map.txt'
+EVAL_RESULTS_FILE = 'benchmark_map.txt'
 # File to store max mAP from using certain training/validation size set
-RESULTS_FILE = 'benchmark_results.txt'
+FINAL_RESULTS_FILE = 'benchmark_results.txt'
 
 
 
@@ -92,12 +92,12 @@ for num_imgs in range(START_IMGS, MAX_IMGS, STEP_SIZE):
         '--data_config', DATA_CONFIG, '--weights_path', weights_path, '--class_path', os.path.join(DATA_DIR, "classes.names")])
 
         # Save the mAP after the evaluation for each epoch
-        with open(EVAL_RESULTS,'r+') as f:
+        with open(EVAL_RESULTS_FILE,'r+') as f:
             mAP = f.read()
         metrics.append(mAP)
 
     # Take the max mAP for this number of training/validation images and save it into the results file
     max_mAP = max(metrics)
-    results = open(RESULTS_FILE, 'a+')
+    results = open(FINAL_RESULTS_FILE, 'a+')
     results.write(str(num_imgs) + 'images :' + str(max_mAP) + '\n')
     results.close()
