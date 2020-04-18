@@ -11,6 +11,7 @@ A minimal PyTorch implementation of YOLOv3, with support for training, inference
 - `category_benchmark.py`: Benchmark to test if training on different categories of images improves accuracy.
 - `live.py`: Detect on single input image using trained model.
 - `to_cpu.py`: Convert CUDA model and weights to CPU model and weights.
+- `convert_sim_voc_to_yolo.py`: Convert data collected from Unity simulation from PascalVOC to YOLOv3 format.
 
 
 
