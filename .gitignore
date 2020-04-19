@@ -4,7 +4,6 @@ build
 *.egg-info
 dist
 output
-data/
 logs/
 backup
 weights/
@@ -12,4 +11,5 @@ __pycache__
 checkpoints
 close_checkpoints
 medium_checkpoints
+data/
 .vscode
