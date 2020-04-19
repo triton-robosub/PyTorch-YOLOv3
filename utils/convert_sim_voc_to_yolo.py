@@ -108,7 +108,9 @@ def sort_files():
         if ".png" in f:
             os.rename(f, os.path.join(IMAGES, f))
         elif ".xml" in f:
-            os.rename(f, os.path.join(XML_LABELS, f))
+            # removes label_ in front of .xml files
+            new_f = f[6:]
+            os.rename(f, os.path.join(XML_LABELS, new_f))
 
 if __name__ == "__main__":
     # Construct the argument parser and parse args

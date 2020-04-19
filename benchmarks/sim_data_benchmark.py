@@ -6,6 +6,8 @@ consists training for a certain number of epochs, and then testing on the test s
 repeats until overfitting is realized. A results log will contain a checkpoint model and a testing
 benchmark score each time the model tests on the test set.
 
+MOVE BENCHMARK OUT OF benchmarks/ to PyTorch-YOLOv3/ before running
+
 Author: Imran Matin
 '''
 import argparse
@@ -91,22 +93,28 @@ if __name__ == "__main__":
     # read command line input
     readInput()
 
-    # # get all images into a list and shuffle
-    # all_imgs = getAllImgs()
+    # get all images into a list and shuffle
+    all_imgs = getAllImgs()
 
-    # # create train validation split
-    # createTrainValSplit(all_imgs)
+    # create train validation split
+    createTrainValSplit(all_imgs)
 
-    # # delete contents of checkpoints before training
-    # shutil.rmtree('checkpoints/')
-    # os.mkdir('checkpoints/')
+    # delete contents of checkpoints before training
+    shutil.rmtree('checkpoints/')
+    os.mkdir('checkpoints/')
 
 
     #### BEGIN TRAINING ####
-    for epoch in range(0, EPOCHS+1, 5):
-        if epoch == 0:
+    # for epoch in range(0, EPOCHS+1, 5):
+    for num_epoch in range(0, EPOCHS+1, 2):
+        if num_epoch == 0:
             continue
-        print("Model was trained for {} epochs.".format(epoch))
+        
+        # Step 1: train model
+        subprocess.run(['python3','-W','ignore','train.py','--model_def', MODEL_DEF,
+                        '--data_config', DATA_CONFIG,'--epochs', str(num_epoch),'--batch_size', str(BATCH_SIZE)])
+        
+        print("Model was trained for {} epochs.".format(num_epoch))
 
         
 
