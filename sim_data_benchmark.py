@@ -149,7 +149,7 @@ if __name__ == "__main__":
     train_imgs, val_imgs = createTrainValSplit(all_imgs)
 
     #### BEGIN TRAINING ####
-    metrics = { "Model Trainer": getpass.getuser(), 
+    metrics = { "Benchmark Executer": getpass.getuser(), 
                 "Date": str(datetime.now()),
                 "Epochs Trained For": EPOCHS,
                 "Test Interval": TEST_INTERVAL,
