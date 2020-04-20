@@ -2,7 +2,9 @@
     "Model Trainer": "imran",
     "Date": "2020-04-19 22:08:30.539010",
     "Epochs Trained For": 50,
+    "Test Interval": 5,
     "Batch Size": 4,
+    "Image Type": ".png",
     "Number of Training Images": 1931,
     "Number of Validation Images": 102,
     "results": {

@@ -1,6 +1,6 @@
 ''' Benchmark that will is trained only on simulation data, and tested on real gate data.
 
-Usage: python sim_data_benchmark.py data/ .png config/sim_data.data config/yolov3-sim_data.cfg 50 4 5
+Usage: python sim_data_benchmark.py data/ .png config/sim_data.data config/yolov3-sim_data.cfg 50 5 4
 
 The benchmark will train a YOLOv3 custom model on only simulation data for the gate captured
 in the Unity simulation. It will test on a test set composed of real gate data. The process
@@ -34,8 +34,9 @@ def readInput():
     global DATA_CONFIG
     global MODEL_DEF
     global EPOCHS
-    global BATCH_SIZE
     global TEST_INTERVAL
+    global BATCH_SIZE
+
 
     # Construct the argument parser and parse args
     parser = argparse.ArgumentParser()
@@ -54,12 +55,13 @@ def readInput():
     parser.add_argument("num_epochs",
                         type=int,
                         help="number of epochs. For example 50.")
-    parser.add_argument("batch_size",
-                        type=int,
-                        help="batch size. For example 4.")
     parser.add_argument("test_interval",
                         type=int,
                         help="every interval to test the model. For example 5.")
+    parser.add_argument("batch_size",
+                        type=int,
+                        help="batch size. For example 4.")
+
     args = parser.parse_args()
 
     DATA_DIR = args.data_dir
@@ -67,8 +69,8 @@ def readInput():
     DATA_CONFIG = args.data_config
     MODEL_DEF = args.model_def
     EPOCHS = args.num_epochs
-    BATCH_SIZE = args.batch_size
     TEST_INTERVAL = args.test_interval
+    BATCH_SIZE = args.batch_size
 
 def getAllImgs():
     """Read all images into a list and then shuffle the list."""
@@ -150,7 +152,9 @@ if __name__ == "__main__":
     metrics = { "Model Trainer": getpass.getuser(), 
                 "Date": str(datetime.now()),
                 "Epochs Trained For": EPOCHS,
+                "Test Interval": TEST_INTERVAL,
                 "Batch Size": BATCH_SIZE,
+                "Image Type": IMG_EXT,
                 "Number of Training Images": len(train_imgs),
                 "Number of Validation Images": len(val_imgs),
                 "results": {}
