@@ -77,7 +77,7 @@ def getAllImgs():
     all_imgs = [img.split('.')[0] for img in all_imgs]
     random.shuffle(all_imgs)
 
-    return all_imgs[:50]
+    return all_imgs
 
 def createTrainValSplit(all_imgs):
     """Split the images into train and valid and write the names to files."""
