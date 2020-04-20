@@ -1,0 +1,1 @@
+{"Model Trainer": "imran", "Date": "2020-04-19 19:26:15.082136", "Epochs Trained For": 1, "Batch Size": 4, "Number of Training Images": 1626, "Number of Validation Images": 407, "results": {"checkpoints/yolov3_ckpt_0.pth": "", "checkpoints/yolov3_ckpt_1.pth": ""}}

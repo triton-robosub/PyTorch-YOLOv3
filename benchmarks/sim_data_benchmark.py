@@ -1,12 +1,12 @@
 ''' Benchmark that will is trained only on simulation data, and tested on real gate data.
 
+Usage: python benchmarks/sim_data_benchmark.py data/ .png config/sim_data.data config/yolov3-sim_data.cfg 50 4 5
+
 The benchmark will train a YOLOv3 custom model on only simulation data for the gate captured
 in the Unity simulation. It will test on a test set composed of real gate data. The process
 consists training for a certain number of epochs, and then testing on the test set. This process
 repeats until overfitting is realized. A results log will contain a checkpoint model and a testing
 benchmark score each time the model tests on the test set.
-
-MOVE BENCHMARK OUT OF benchmarks/ to PyTorch-YOLOv3/ before running
 
 Author: Imran Matin
 '''
@@ -14,14 +14,16 @@ import argparse
 import shutil
 import os
 import random
-import subprocess 
-
+import subprocess
+import json
+from datetime import datetime
+import getpass
 
 #### CONSTANT VARIABLES ####
 # File to store the evauluation of each epoch for certain training/validation size set
 EVAL_RESULTS_FILE = 'benchmark_map.txt'
 # File to store max mAP from using certain training/validation size set
-FINAL_RESULTS_FILE = 'benchmark_results.txt'
+FINAL_RESULTS_FILE = 'benchmark_results.json'
 # The split for the training and validation data
 TRAIN_VAL_SPLIT = 0.8
 
@@ -33,6 +35,7 @@ def readInput():
     global MODEL_DEF
     global EPOCHS
     global BATCH_SIZE
+    global TEST_INTERVAL
 
     # Construct the argument parser and parse args
     parser = argparse.ArgumentParser()
@@ -54,6 +57,9 @@ def readInput():
     parser.add_argument("batch_size",
                         type=int,
                         help="batch size. For example 4.")
+    parser.add_argument("test_interval",
+                        type=int,
+                        help="every interval to test the model. For example 5.")
     args = parser.parse_args()
 
     DATA_DIR = args.data_dir
@@ -62,8 +68,10 @@ def readInput():
     MODEL_DEF = args.model_def
     EPOCHS = args.num_epochs
     BATCH_SIZE = args.batch_size
+    TEST_INTERVAL = args.test_interval
 
 def getAllImgs():
+    """Read all images into a list and then shuffle the list."""
     # get all images into a list and shuffle
     all_imgs = os.listdir(os.path.join(DATA_DIR, "labels"))
     all_imgs = [img.split('.')[0] for img in all_imgs]
@@ -71,14 +79,12 @@ def getAllImgs():
     return all_imgs
 
 def createTrainValSplit(all_imgs):
+    """Split the images into train and valid and write the names to files."""
+
     # get random subset of images of size num_imgs, split 80/20 train/valid
     train_size = int(len(all_imgs) * TRAIN_VAL_SPLIT)
     train_imgs = all_imgs[:train_size]
     val_imgs = all_imgs[train_size:]
-    
-    # write training and valid images into txt files
-    print("number of training images: {}".format(len(train_imgs)))
-    print("number of validation images: {}".format(len(val_imgs)))
 
     # write training and valid images into txt files
     with open(os.path.join(DATA_DIR, "train.txt"),'w') as f:
@@ -88,6 +94,45 @@ def createTrainValSplit(all_imgs):
     with open(os.path.join(DATA_DIR, "valid.txt"),'w') as f:
         for img in val_imgs:
             f.write(os.path.join(DATA_DIR, "images", "") + img + IMG_EXT +"\n")
+    
+    return train_imgs, val_imgs
+
+def trainModel():
+    """Train the model for specified Epochs."""
+    subprocess.run(['python3','-W','ignore','train.py',
+    '--model_def', MODEL_DEF,
+    '--data_config', DATA_CONFIG,
+    '--epochs', str(EPOCHS),
+    '--batch_size', str(BATCH_SIZE)])
+
+def testModel():
+    """Test the model for every specified number of epochs trained and save the mAP."""
+    # test the model after every 5 epochs of training
+    # range will skip last epoch value if not included because 
+    for ckpt in range(0, EPOCHS+1, TEST_INTERVAL):
+        # model only has checkpoints from [0, EPOCHS-1]
+        if ckpt == EPOCHS:
+            cpkt = EPOCHS - 1
+        weights_path = f'checkpoints/yolov3_ckpt_{ckpt}.pth'
+
+        subprocess.run(['python3', 'test.py',
+        '--model_def', MODEL_DEF,
+        '--data_config', DATA_CONFIG,
+        '--batch_size', str(BATCH_SIZE),
+        '--weights_path', weights_path, 
+        '--class_path', os.path.join(DATA_DIR, "classes.names")])
+
+        # Save the mAP after the evaluation for each epoch
+        # need to have this file created before training
+        with open(EVAL_RESULTS_FILE,'r+') as f:
+            mAP = f.read()
+        metrics["results"][weights_path] = mAP
+
+def writeResults(metrics):
+    """Write the results of the benchmark to the file."""
+    # write training results and information to file
+    with open(FINAL_RESULTS_FILE, 'w+') as outfile:
+        json.dump(metrics, outfile)
 
 if __name__ == "__main__":
     # read command line input
@@ -97,37 +142,24 @@ if __name__ == "__main__":
     all_imgs = getAllImgs()
 
     # create train validation split
-    createTrainValSplit(all_imgs)
+    train_imgs, val_imgs = createTrainValSplit(all_imgs)
+
+    #### BEGIN TRAINING ####
+    metrics = { "Model Trainer": getpass.getuser(), 
+                "Date": str(datetime.now()),
+                "Epochs Trained For": EPOCHS,
+                "Batch Size": BATCH_SIZE,
+                "Number of Training Images": len(train_imgs),
+                "Number of Validation Images": len(val_imgs),
+                "results": {}
+                }
 
     # delete contents of checkpoints before training
     shutil.rmtree('checkpoints/')
     os.mkdir('checkpoints/')
-
-
-    #### BEGIN TRAINING ####
-    # for epoch in range(0, EPOCHS+1, 5):
-    for num_epoch in range(0, EPOCHS+1, 2):
-        if num_epoch == 0:
-            continue
-        
-        # Step 1: train model
-        subprocess.run(['python3','-W','ignore','train.py','--model_def', MODEL_DEF,
-                        '--data_config', DATA_CONFIG,'--epochs', str(num_epoch),'--batch_size', str(BATCH_SIZE)])
-        
-        print("Model was trained for {} epochs.".format(num_epoch))
-
-        
-
-    # # Step 1: train model
-    # subprocess.run(['python3','-W','ignore','train.py','--model_def', MODEL_DEF,
-    # '--data_config', DATA_CONFIG,'--epochs', str(EPOCHS),'--batch_size', BATCH_SIZE])
-
-    # # Step 2: stop after certain number of epochs
-
-    # # Step 3: test the model
-
-    # # Step 4: save results to benchmark file
-    
-    # # Step 5: save checkpoint model
-
-    # # repeat Step 1 until total number of epochs reached
+    # Train model
+    trainModel()
+    # Test model
+    testModel()
+    # write model training results to file
+    writeResults(metrics)

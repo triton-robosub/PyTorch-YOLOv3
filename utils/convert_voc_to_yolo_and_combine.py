@@ -94,7 +94,9 @@ def sortFiles(subdir):
     xml_labels = []
 
     for f in os.listdir(subdir):
-        if ".png" in f:
+        if ".meta" in f:
+            continue
+        elif ".png" in f:
             images.append(f)
         elif ".xml" in f:
             xml_labels.append(f)
@@ -110,6 +112,19 @@ def moveFiles(subdir, images, xml_labels):
             # copy image and label to respective root directories
             shutil.copy(img_path, ROOT_IMG_DIR)
             shutil.copy(xml_label_path, ROOT_XML_LABELS_DIR)
+
+def convert(size, box):
+    dw = 1.0 / (size[0])
+    dh = 1.0 / (size[1])
+    x = (box[0] + box[1]) / 2.0 - 1
+    y = (box[2] + box[3]) / 2.0 - 1
+    w = box[1] - box[0]
+    h = box[3] - box[2]
+    x = x * dw
+    w = w * dw
+    y = y * dh
+    h = h * dh
+    return (x, y, w, h)
 
 def convert_annotation(voc_path, yolo_path):
     """Convert PascalVOC annotations to YOLOv3.
@@ -130,7 +145,7 @@ def convert_annotation(voc_path, yolo_path):
     for in_fname in annpath.iterdir():
         out_fname = outpath / (in_fname.name.split(".")[0] + ".txt")
         with open(in_fname) as in_file, open(out_fname, "w") as out_file:
-
+            
             tree = ET.parse(in_file)
             root = tree.getroot()
             size = root.find("size")

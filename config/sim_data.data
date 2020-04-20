@@ -1,4 +1,4 @@
 classes=2
-train=data/sim_data/train.txt
-valid=data/sim_data/valid.txt
-names=data/sim_data/classes.names
+train=data/train.txt
+valid=data/valid.txt
+names=data/classes.names
