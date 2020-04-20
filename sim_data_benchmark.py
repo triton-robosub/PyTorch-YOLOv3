@@ -25,7 +25,7 @@ EVAL_RESULTS_FILE = 'benchmark_map.txt'
 # File to store max mAP from using certain training/validation size set
 FINAL_RESULTS_FILE = 'benchmark_results.json'
 # The split for the training and validation data
-TRAIN_VAL_SPLIT = 0.95
+TRAIN_VAL_SPLIT = 0.80
 
 def readInput():
     """Parse user input from the command line."""
