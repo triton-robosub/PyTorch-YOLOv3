@@ -4,7 +4,7 @@ one images and one labels directory in root directory. Also converts
 PascalVOC labels into YOLOv3 labels. Creates a classes.names file for
 classes passed in.
 
-Usage: python ~/Desktop/PyTorch-YOLOv3/utils/convert_voc_to_yolo_and_combine.py sim_data/ --class_names bp lp
+Usage: python ~/Desktop/PyTorch-YOLOv3/utils/convert_voc_to_yolo_and_combine.py [root_data_directory] --class_names class1 class2 ...
 
 Author: Imran Matin
 Credits: https://github.com/pjreddie/darknet/blob/master/scripts/voc_label.py
