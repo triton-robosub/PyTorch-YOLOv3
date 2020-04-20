@@ -1,1 +1,21 @@
-{"Model Trainer": "imran", "Date": "2020-04-19 22:07:42.253612", "Epochs Trained For": 50, "Batch Size": 4, "Number of Training Images": 47, "Number of Validation Images": 3, "results": {"checkpoints/yolov3_ckpt_0.pth": "0.012824548779756553", "checkpoints/yolov3_ckpt_5.pth": "0.012824548779756553", "checkpoints/yolov3_ckpt_10.pth": "0.012824548779756553", "checkpoints/yolov3_ckpt_15.pth": "0.012824548779756553", "checkpoints/yolov3_ckpt_20.pth": "0.012824548779756553", "checkpoints/yolov3_ckpt_25.pth": "0.012824548779756553", "checkpoints/yolov3_ckpt_30.pth": "0.012824548779756553", "checkpoints/yolov3_ckpt_35.pth": "0.012824548779756553", "checkpoints/yolov3_ckpt_40.pth": "0.012824548779756553", "checkpoints/yolov3_ckpt_45.pth": "0.012824548779756553", "checkpoints/yolov3_ckpt_49.pth": "0.012824548779756553"}}
+{
+    "Model Trainer": "imran",
+    "Date": "2020-04-19 22:08:30.539010",
+    "Epochs Trained For": 50,
+    "Batch Size": 4,
+    "Number of Training Images": 1931,
+    "Number of Validation Images": 102,
+    "results": {
+        "checkpoints/yolov3_ckpt_0.pth": "0.5304425060272061",
+        "checkpoints/yolov3_ckpt_5.pth": "0.8472368947760159",
+        "checkpoints/yolov3_ckpt_10.pth": "0.8657842966643875",
+        "checkpoints/yolov3_ckpt_15.pth": "0.8519715982416389",
+        "checkpoints/yolov3_ckpt_20.pth": "0.8561192562328872",
+        "checkpoints/yolov3_ckpt_25.pth": "0.8817153176959425",
+        "checkpoints/yolov3_ckpt_30.pth": "0.8614917057579188",
+        "checkpoints/yolov3_ckpt_35.pth": "0.7534417483800323",
+        "checkpoints/yolov3_ckpt_40.pth": "0.8293814172042846",
+        "checkpoints/yolov3_ckpt_45.pth": "0.8641726615965057",
+        "checkpoints/yolov3_ckpt_49.pth": "0.8772574421722354"
+    }
+}
