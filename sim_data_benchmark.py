@@ -1,6 +1,6 @@
 ''' Benchmark that will is trained only on simulation data, and tested on real gate data.
 
-Usage: python benchmarks/sim_data_benchmark.py data/ .png config/sim_data.data config/yolov3-sim_data.cfg 50 4 5
+Usage: python sim_data_benchmark.py data/ .png config/sim_data.data config/yolov3-sim_data.cfg 50 4 5
 
 The benchmark will train a YOLOv3 custom model on only simulation data for the gate captured
 in the Unity simulation. It will test on a test set composed of real gate data. The process
@@ -25,7 +25,7 @@ EVAL_RESULTS_FILE = 'benchmark_map.txt'
 # File to store max mAP from using certain training/validation size set
 FINAL_RESULTS_FILE = 'benchmark_results.json'
 # The split for the training and validation data
-TRAIN_VAL_SPLIT = 0.8
+TRAIN_VAL_SPLIT = 0.95
 
 def readInput():
     """Parse user input from the command line."""
@@ -76,7 +76,8 @@ def getAllImgs():
     all_imgs = os.listdir(os.path.join(DATA_DIR, "labels"))
     all_imgs = [img.split('.')[0] for img in all_imgs]
     random.shuffle(all_imgs)
-    return all_imgs
+
+    return all_imgs[:50]
 
 def createTrainValSplit(all_imgs):
     """Split the images into train and valid and write the names to files."""
@@ -112,7 +113,8 @@ def testModel():
     for ckpt in range(0, EPOCHS+1, TEST_INTERVAL):
         # model only has checkpoints from [0, EPOCHS-1]
         if ckpt == EPOCHS:
-            cpkt = EPOCHS - 1
+            ckpt = EPOCHS - 1
+
         weights_path = f'checkpoints/yolov3_ckpt_{ckpt}.pth'
 
         subprocess.run(['python3', 'test.py',

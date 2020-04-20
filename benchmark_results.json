@@ -1,1 +1,13 @@
-{"Model Trainer": "imran", "Date": "2020-04-19 19:26:15.082136", "Epochs Trained For": 1, "Batch Size": 4, "Number of Training Images": 1626, "Number of Validation Images": 407, "results": {"checkpoints/yolov3_ckpt_0.pth": "", "checkpoints/yolov3_ckpt_1.pth": ""}}
+{
+    "Model Trainer": "imran",
+    "Date": "2020-04-19 22:03:17.106392",
+    "Epochs Trained For": 4,
+    "Batch Size": 4,
+    "Number of Training Images": 47,
+    "Number of Validation Images": 3,
+    "results": {
+        "checkpoints/yolov3_ckpt_0.pth": "0.0004199760160440852",
+        "checkpoints/yolov3_ckpt_2.pth": "0.0023002887306317783",
+        "checkpoints/yolov3_ckpt_3.pth": "0.012824548779756553"
+    }
+}
